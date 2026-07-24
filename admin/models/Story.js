@@ -11,6 +11,10 @@ const storySchema = new mongoose.Schema({
   tags: [{ type: String, trim: true }],
   highlights: [{ type: String, trim: true }],
   quote: { type: String, trim: true },
+  conversation: [{
+    speaker: { type: String, enum: ['حكيم', 'سائل'], default: 'حكيم' },
+    text: { type: String, default: '' }
+  }],
   order: { type: Number, default: 0 },
   isActive: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now },

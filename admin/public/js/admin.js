@@ -3,6 +3,39 @@ let state = { view: 'dashboard', categories: [], stories: [], videos: [], stats:
 let currentId = null;
 let editingType = null;
 
+// --- CONVERSATION HELPERS ---
+function addConversation() {
+  const speaker = $('#conv-speaker').value;
+  const text = $('#conv-text').value.trim();
+  if (!text) return;
+  const list = $('#conv-list');
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;gap:6px;align-items:center;background:var(--surface2);padding:8px 12px;border-radius:8px;border:1px solid var(--border);';
+  div.innerHTML = `
+    <span style="font-size:12px;color:${speaker === 'حكيم' ? '#4CAF50' : '#42A5F5'};font-weight:700;min-width:40px;">${speaker === 'حكيم' ? '📜' : '🌟'} ${speaker}</span>
+    <span style="flex:1;font-size:13px;text-align:right;">${text}</span>
+    <span style="cursor:pointer;color:var(--danger);font-size:16px;" onclick="this.parentElement.remove();">×</span>
+    <input type="hidden" name="conv-speaker" value="${speaker}">
+    <input type="hidden" name="conv-text" value="${escHtml(text)}">
+  `;
+  list.appendChild(div);
+  $('#conv-text').value = '';
+}
+
+function getConversation() {
+  const items = [];
+  const list = $('#conv-list');
+  if (!list) return items;
+  list.querySelectorAll('div').forEach(div => {
+    const speakerInput = div.querySelector('input[name="conv-speaker"]');
+    const textInput = div.querySelector('input[name="conv-text"]');
+    if (speakerInput && textInput && textInput.value.trim()) {
+      items.push({ speaker: speakerInput.value, text: textInput.value });
+    }
+  });
+  return items;
+}
+
 // --- UTILITIES ---
 function $(sel) { return document.querySelector(sel); }
 function $$(sel) { return document.querySelectorAll(sel); }
@@ -551,6 +584,29 @@ function openStoryModal(id = null) {
         <textarea class="form-textarea" id="story-highlights" rows="4" placeholder="كل نقطة في سطر">${s && s.highlights ? s.highlights.join('\n') : ''}</textarea>
       </div>
       <div class="form-group">
+        <label>حوار المحادثة (اختياري)</label>
+        <div style="display:flex;gap:8px;margin-bottom:8px;">
+          <select class="form-select" id="conv-speaker" style="width:100px;">
+            <option value="حكيم">📜 حكيم</option>
+            <option value="سائل">🌟 سائل</option>
+          </select>
+          <input class="form-input" id="conv-text" placeholder="نص الحوار..." style="flex:1;" onkeydown="if(event.key==='Enter'){event.preventDefault();addConversation()}">
+          <button class="btn btn-accent btn-sm" onclick="addConversation()" style="white-space:nowrap;">+ إضافة</button>
+        </div>
+        <div id="conv-list" style="display:flex;flex-direction:column;gap:4px;">
+          ${s && s.conversation ? s.conversation.map((c, i) =>
+            `<div style="display:flex;gap:6px;align-items:center;background:var(--surface2);padding:8px 12px;border-radius:8px;border:1px solid var(--border);">
+              <span style="font-size:12px;color:${c.speaker === 'حكيم' ? '#4CAF50' : '#42A5F5'};font-weight:700;min-width:40px;">${c.speaker === 'حكيم' ? '📜' : '🌟'} ${c.speaker}</span>
+              <span style="flex:1;font-size:13px;text-align:right;">${c.text}</span>
+              <span style="cursor:pointer;color:var(--danger);font-size:16px;" onclick="this.parentElement.remove();">×</span>
+              <input type="hidden" name="conv-speaker-${i}" value="${c.speaker}">
+              <input type="hidden" name="conv-text-${i}" value="${c.text.replace(/"/g, '&quot;')}">
+            </div>`
+          ).join('') : ''}
+        </div>
+        <div class="form-hint">أضف حوارات بين حكيم وسائل لتظهر في التطبيق</div>
+      </div>
+      <div class="form-group">
         <label>اقتباس</label>
         <textarea class="form-textarea" id="story-quote" rows="2">${s ? escHtml(s.quote || '') : ''}</textarea>
       </div>
@@ -572,6 +628,7 @@ function openStoryModal(id = null) {
         order: parseInt($('#story-order').value) || 0,
         tags, highlights,
         quote: $('#story-quote').value,
+        conversation: getConversation(),
         isActive: $('#story-active').checked,
       };
       if (!data.title || !data.category) { showToast('✗ العنوان والقسم مطلوبان', 'error'); return; }

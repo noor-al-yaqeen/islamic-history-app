@@ -348,6 +348,64 @@ app.get('/api/app/search', (req, res) => {
   } catch { res.json({ success: true, data: { stories: [], videos: [] } }); }
 });
 
+// ─── App Topic Endpoint (returns data in app format) ───────────────
+app.get('/api/app/topic/:slug', async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const slugToType = {
+      prophet: { title: 'النبي محمد ﷺ', subtitle: 'خاتم الأنبياء والمرسلين', icon: '🕊️', color: '#2E7D32' },
+      sahaba: { title: 'الصحابة الكرام', subtitle: 'رضي الله عنهم وأرضاهم', icon: '🤝', color: '#1565C0' },
+      ghazwat: { title: 'الغزوات النبوية', subtitle: 'بطولات وانتصارات الإسلام', icon: '⚔️', color: '#C62828' },
+      ummahat: { title: 'أمهات المؤمنين', subtitle: 'زوجات النبي الطاهرات', icon: '👑', color: '#7B1FA2' },
+      videos: { title: 'الفيديوهات', subtitle: 'مقاطع مرئية وثائقية', icon: '🎬', color: '#E65100' },
+    };
+
+    const info = slugToType[slug] || { title: slug, subtitle: '', icon: '📖', color: '#333' };
+    let categoryFilter = slug === 'videos' ? null : slug;
+
+    // Get stories for this topic
+    let stories = [];
+    let videos = [];
+    if (db.mongo) {
+      const cat = await db.Category.findOne({ slug });
+      if (cat) {
+        stories = await db.Story.find({ category: cat._id, isActive: true }).sort({ order: 1 });
+      }
+      if (slug === 'videos') {
+        videos = await db.Video.find({ isActive: true }).sort({ createdAt: -1 });
+      }
+    } else {
+      const cats = db.categories.findAll({ isActive: true });
+      const cat = cats.find(c => c.slug === slug);
+      if (cat) {
+        stories = db.stories.findAll({ isActive: true, category: cat._id });
+      } else {
+        stories = db.stories.findAll({ isActive: true });
+      }
+      if (slug === 'videos') {
+        videos = db.videos.findAll({ isActive: true }).reverse();
+      }
+    }
+
+    res.json({
+      success: true,
+      data: {
+        ...info,
+        conversation: stories.length > 0
+          ? (stories[0].conversation && stories[0].conversation.length > 0
+              ? stories[0].conversation
+              : [{ speaker: 'حكيم', text: `مرحباً بك في قسم ${info.title}` }, { speaker: 'سائل', text: 'أخبرني المزيد!' }])
+          : [{ speaker: 'حكيم', text: `مرحباً بك في قسم ${info.title}` }, { speaker: 'سائل', text: 'أخبرني المزيد!' }],
+        stories,
+        videos,
+        fromAPI: true,
+      }
+    });
+  } catch {
+    res.json({ success: false, data: null });
+  }
+});
+
 app.get('/api/app/status', (req, res) => {
   res.json({
     success: true,

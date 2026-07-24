@@ -1,8 +1,9 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, StatusBar, SafeAreaView, Platform, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, StatusBar, SafeAreaView, Platform, Dimensions, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import ChatBubble, { TypingIndicator } from '../components/ChatBubble';
 import { COLORS } from '../constants/colors';
+import { useData } from '../hooks/useData';
 
 const isWeb = Platform.OS === 'web';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -270,8 +271,11 @@ const VideoCard = ({ v }) => (
 );
 
 const TopicScreen = ({ route, navigation }) => {
-  const { data, type } = route.params;
+  const { data: routeData, type } = route.params;
+  const { data: apiData, loading } = useData(type);
   const scrollY = useRef(new Animated.Value(0)).current;
+
+  const data = apiData || routeData;
 
   const isSahaba = type === 'sahaba';
   const isGhazwat = type === 'ghazwat';
@@ -284,6 +288,18 @@ const TopicScreen = ({ route, navigation }) => {
     outputRange: [1, 0],
     extrapolate: 'clamp',
   });
+
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.safe}>
+        <StatusBar barStyle="light-content" backgroundColor="#0D1117" />
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <ActivityIndicator size="large" color={COLORS.gold} />
+          <Text style={{ color: COLORS.textLight, marginTop: 12, fontSize: 14 }}>جاري تحميل البيانات...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.safe}>
