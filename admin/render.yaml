@@ -1,0 +1,17 @@
+# Render.com deployment config
+services:
+  - type: web
+    name: islamic-history-admin
+    env: node
+    region: ohio
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGODB_URI
+        value: mongodb+srv://hemanabil4444_db_user:itf28qX5LdcOelk0@cluster0.edlcpm0.mongodb.net/islamic-history-app?retryWrites=true&w=majority
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        value: admin123
+      - key: NODE_ENV
+        value: production

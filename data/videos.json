@@ -1,0 +1,71 @@
+{
+  "title": "الفيديوهات",
+  "subtitle": "مقاطع مرئية عن التاريخ الإسلامي",
+  "icon": "🎬",
+  "color": "#E65100",
+  "videos": [
+    {
+      "id": 1,
+      "title": "قصة النبي محمد ﷺ كاملة",
+      "description": "فيلم وثائقي عن سيرة خاتم الأنبياء والمرسلين",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "videoId": "dQw4w9WgXcQ",
+      "category": "prophet",
+      "duration": "45:00"
+    },
+    {
+      "id": 2,
+      "title": "غزوة بدر الكبرى",
+      "description": "تفاصيل أول غزوة في الإسلام",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "videoId": "dQw4w9WgXcQ",
+      "category": "ghazwat",
+      "duration": "30:00"
+    },
+    {
+      "id": 3,
+      "title": "قصة عمر بن الخطاب",
+      "description": "من عداوة الإسلام إلى الفاروق",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "videoId": "dQw4w9WgXcQ",
+      "category": "sahaba",
+      "duration": "40:00"
+    },
+    {
+      "id": 4,
+      "title": "أمهات المؤمنين",
+      "description": "قصة زوجات النبي الطاهرات",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "videoId": "dQw4w9WgXcQ",
+      "category": "ummahat",
+      "duration": "35:00"
+    },
+    {
+      "id": 5,
+      "title": "فتح مكة",
+      "description": "أعظم فتح في تاريخ الإسلام",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "videoId": "dQw4w9WgXcQ",
+      "category": "ghazwat",
+      "duration": "25:00"
+    }
+  ],
+  "conversation": [
+    {
+      "speaker": "سائل",
+      "text": "هل هناك فيديوهات عن التاريخ الإسلامي؟"
+    },
+    {
+      "speaker": "حكيم",
+      "text": "نعم بالطبع! هناك مئات الفيديوهات الوثائقية والموثوقة عن سيرة النبي ﷺ والصحابة والغزوات. يمكنك مشاهدتها من منصات مثل يوتيوب."
+    },
+    {
+      "speaker": "سائل",
+      "text": "ما هي أفضل القنوات لمشاهدة محتوى إسلامي موثوق؟"
+    },
+    {
+      "speaker": "حكيم",
+      "text": "هناك قنوات رائعة مثل: قناة البداية والنهاية، قناة اقرأ، قناة الرحمة، وقناة المجد الوثائقية. كلها تقدم محتوى إسلامياً أصيلاً وراقياً."
+    }
+  ]
+}

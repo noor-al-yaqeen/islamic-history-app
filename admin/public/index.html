@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم - التاريخ الإسلامي</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .hero-gradient {
+      background: linear-gradient(135deg, #0D1117 0%, #161B22 50%, #0D1117 100%);
+    }
+    .loading-overlay .spinner {
+      width: 48px; height: 48px;
+      border: 4px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .welcome-message {
+      font-size: 14px;
+      color: var(--text2);
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .quick-actions .btn {
+      flex: 1;
+      min-width: 80px;
+      justify-content: center;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Login -->
+  <div class="login-page" id="loginPage">
+    <div class="login-card">
+      <div class="login-logo">🕌</div>
+      <div class="login-title">لوحة التحكم</div>
+      <div class="login-sub">التاريخ الإسلامي - إدارة المحتوى</div>
+      <div class="login-error"></div>
+      <div class="form-group" style="text-align:right;">
+        <input class="form-input" id="login-user" type="text" placeholder="اسم المستخدم" style="text-align:right;margin-bottom:10px;">
+        <input class="form-input" id="login-pass" type="password" placeholder="كلمة المرور" style="text-align:right;margin-bottom:20px;">
+        <button class="btn btn-primary" onclick="handleLogin()" style="width:100%;justify-content:center;padding:12px;">🔑 تسجيل الدخول</button>
+      </div>
+      <div style="margin-top:16px;font-size:11px;color:var(--text3);">
+        admin / admin123
+      </div>
+      <div style="margin-top:8px;font-size:10px;color:var(--text3);opacity:0.6;">
+        النسخة 2.0 | التاريخ الإسلامي
+      </div>
+    </div>
+  </div>
+
+  <!-- App -->
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">🕌</div>
+        <div class="sidebar-title">تاريخ الإسلام</div>
+        <div class="sidebar-sub">لوحة التحكم</div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-view="dashboard" onclick="navigate('dashboard')">
+          <span class="nav-icon">📊</span> لوحة التحكم
+        </button>
+        <button class="nav-item" data-view="categories" onclick="navigate('categories')">
+          <span class="nav-icon">📂</span> الأقسام
+          <span class="nav-badge">0</span>
+        </button>
+        <button class="nav-item" data-view="stories" onclick="navigate('stories')">
+          <span class="nav-icon">📖</span> القصص
+          <span class="nav-badge">0</span>
+        </button>
+        <button class="nav-item" data-view="videos" onclick="navigate('videos')">
+          <span class="nav-icon">🎬</span> الفيديوهات
+          <span class="nav-badge">0</span>
+        </button>
+        <button class="nav-item" data-view="search" onclick="navigate('search')">
+          <span class="nav-icon">🔍</span> بحث
+        </button>
+      </nav>
+      <div class="quick-actions">
+        <button class="btn btn-primary btn-sm" onclick="openCategoryModal()">+ قسم</button>
+        <button class="btn btn-accent btn-sm" onclick="openStoryModal()">+ قصة</button>
+        <button class="btn btn-danger btn-sm" onclick="openVideoModal()">+ فيديو</button>
+      </div>
+      <div class="sidebar-footer">
+        <div id="db-status" style="display:flex;align-items:center;gap:6px;padding:6px 16px;font-size:11px;margin-bottom:8px;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#F44336;display:inline-block;" id="db-dot"></span>
+          <span style="color:var(--text3);" id="db-text">قاعدة البيانات: غير متصلة</span>
+        </div>
+        <button class="btn-logout" onclick="handleLogout()">🚪 تسجيل الخروج</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <div class="main-content"></div>
+    </main>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

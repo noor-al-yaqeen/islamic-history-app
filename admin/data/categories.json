@@ -1,0 +1,62 @@
+[
+  {
+    "_id": 1,
+    "name": "النبي محمد ﷺ",
+    "slug": "prophet",
+    "description": "سيرة خاتم الأنبياء والمرسلين",
+    "icon": "🕊️",
+    "color": "#2E7D32",
+    "order": 1,
+    "isActive": true
+  },
+  {
+    "_id": 2,
+    "name": "الصحابة الكرام",
+    "slug": "sahaba",
+    "description": "أصحاب النبي وخير القرون",
+    "icon": "🤝",
+    "color": "#1565C0",
+    "order": 2,
+    "isActive": true
+  },
+  {
+    "_id": 3,
+    "name": "الغزوات النبوية",
+    "slug": "ghazwat",
+    "description": "غزوات النبي وبطولات الصحابة",
+    "icon": "⚔️",
+    "color": "#C62828",
+    "order": 3,
+    "isActive": true
+  },
+  {
+    "_id": 4,
+    "name": "أمهات المؤمنين",
+    "slug": "ummahat",
+    "description": "زوجات النبي الطاهرات",
+    "icon": "👑",
+    "color": "#7B1FA2",
+    "order": 4,
+    "isActive": true
+  },
+  {
+    "_id": 5,
+    "name": "قصص الأنبياء",
+    "slug": "prophet-stories",
+    "description": "قصص الأنبياء والمرسلين",
+    "icon": "📖",
+    "color": "#E65100",
+    "order": 5,
+    "isActive": true
+  },
+  {
+    "_id": 6,
+    "name": "الأماكن المقدسة",
+    "slug": "holy-places",
+    "description": "المساجد والأماكن الإسلامية",
+    "icon": "🕌",
+    "color": "#00695C",
+    "order": 6,
+    "isActive": true
+  }
+]
