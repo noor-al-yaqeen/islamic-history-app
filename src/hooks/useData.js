@@ -45,9 +45,15 @@ export function useData(type) {
         }
       } catch {}
       try {
-        const local = require('../../data/' + type + '.json');
-        if (!cancelled) {
-          setData({ fromAPI: false, ...local });
+        const localData = {
+          prophet: require('../../data/prophet.json'),
+          sahaba: require('../../data/sahaba.json'),
+          ghazwat: require('../../data/ghazwat.json'),
+          ummahat: require('../../data/ummahat.json'),
+          videos: require('../../data/videos.json'),
+        };
+        if (!cancelled && localData[type]) {
+          setData({ fromAPI: false, ...localData[type] });
         }
       } catch (e) {
         if (!cancelled) {

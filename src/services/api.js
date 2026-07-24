@@ -1,23 +1,5 @@
-import { Platform } from 'react-native';
-
-// ═══════════════════════════════════════════════════════════════
-// 🚀 ضبط الاتصال بلوحة التحكم (Admin Panel)
-// ═══════════════════════════════════════════════════════════════
-//
-// 1. غير ADMIN_URL إلى رابط Railway بتاعك
-// 2. حول USE_API إلى true
-//
-// مثال: ADMIN_URL = 'https://islamic-history-admin.up.railway.app'
-// ═══════════════════════════════════════════════════════════════
-
-const ADMIN_URL = Platform.OS === 'web'
-  ? 'http://localhost:4000'              // محلي
-  : 'http://10.0.2.2:4000';             // أندرويد емулятор
-
-// ضع رابط Railway هنا بعد ما تشتغل:
-// const ADMIN_URL = 'https://islamic-history-admin.up.railway.app';
-
-const USE_API = false; // ← حولها لـ true عشان يجيب البيانات من Admin
+const ADMIN_URL = process.env.EXPO_PUBLIC_ADMIN_URL || 'http://localhost:4000';
+const USE_API = process.env.EXPO_PUBLIC_USE_API === 'true';
 
 // ═══════════════════════════════════════════════════════════════
 
